@@ -7,7 +7,7 @@ def load_file(file):
         raw_data = mne.io.read_raw(file, preload = True)
         return raw_data
     except Exception as e:
-        print("Error loading data: " + e)
+        print("Error loading data: " + str(e))
         return None
 
 def filter_data(raw_data, low_freq = 0.1, high_freq = 30.0):
@@ -28,6 +28,10 @@ def detect_activation(raw_data, electrode, threshold, duration=1.0):
     Returns:
     - Boolean indicating whether activation is above threshold.
     """
+    if electrode not in raw_data.ch_names:
+        print(f"Electrode {electrode} not found in data.")
+        return False
+
     data, times = raw_data[electrode]
     mean_amplitude = np.mean(data[:int(duration * raw_data.info['sfreq'])])
     return mean_amplitude > threshold
