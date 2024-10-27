@@ -1,0 +1,37 @@
+import mne
+import numpy as np
+
+def load_file(file):
+    """Loading EEG data from a file"""
+    try:
+        raw_data = mne.io.read_raw(file, preload = True)
+        return raw_data
+    except Exception as e:
+        print("Error loading data: " + e)
+        return None
+
+def filter_data(raw_data, low_freq = 0.1, high_freq = 30.0):
+    """Applying a filter to the raw data to remove noise"""
+    raw_data.filter(low_freq, high_freq)
+    return raw_data
+
+def detect_activation(raw_data, electrode, threshold, duration=1.0):
+    """
+    Detect activation above a threshold.
+    
+    Parameters:
+    - raw_data: Filtered EEG data
+    - electrode: Electrode channel name (e.g., 'Fp1')
+    - threshold: Threshold level for activation detection
+    - duration: Duration in seconds for averaging signal amplitude
+    
+    Returns:
+    - Boolean indicating whether activation is above threshold.
+    """
+    data, times = raw_data[electrode]
+    mean_amplitude = np.mean(data[:int(duration * raw_data.info['sfreq'])])
+    return mean_amplitude > threshold
+
+
+
+
