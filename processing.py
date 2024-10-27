@@ -1,10 +1,11 @@
 import mne
 import numpy as np
+import os
 
 def load_file(file):
     """Loading EEG data from a file"""
     try:
-        raw_data = mne.io.read_raw(file, preload = True)
+        raw_data = mne.io.read_raw_fif(file, preload = True)
         return raw_data
     except Exception as e:
         print("Error loading data: " + str(e))
@@ -34,8 +35,22 @@ def detect_activation(raw_data, electrode, threshold, duration=1.0):
 
     data, times = raw_data[electrode]
     mean_amplitude = np.mean(data[:int(duration * raw_data.info['sfreq'])])
+    print(f"Mean amplitude for {electrode}: {mean_amplitude}")
     return mean_amplitude > threshold
 
+#testing
+if __name__ == "__main__":
+    # Get the path to MNE sample data
+    sample_data_folder = mne.datasets.sample.data_path()
+    file_path = os.path.join(str(sample_data_folder), 'MEG', 'sample', 'sample_audvis_raw.fif')
 
-
-
+    # Load the data
+    raw_data = load_file(file_path)
+    
+    if raw_data is not None:
+        # Filter the data
+        filtered_data = filter_data(raw_data)
+        
+        # Example threshold check
+        if detect_activation(filtered_data, electrode='MEG 0113', threshold=1e-13):
+            print("Activation detected!")
