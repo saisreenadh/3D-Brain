@@ -1,4 +1,4 @@
-# 3D Brain Project
+# 3D Brain Project (In Progress)
 
 The **3D Brain Project** is an interactive, real-time visualization of brain activity using EEG data. This project places an EEG headset on a participant and analyzes their brain's responses to prompts. If certain brain activity thresholds are exceeded, lights on a 3D model of the brain illuminate to represent activated regions.
 
