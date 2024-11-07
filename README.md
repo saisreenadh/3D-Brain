@@ -13,14 +13,13 @@ The project consists of three main components:
 
 - **`processing.py`**: Contains functions for loading, filtering, and analyzing EEG data.
 - **`display.py`**: Manages the interface with the 3D brain model, controlling LEDs based on detected activation.
-- **`get.py`**: Handles data acquisition from the EEG device and retrieves EEG signals in real time.
 
 ## How It Works
 
 1. **Load EEG Data**: Raw EEG data is loaded from a sample file or live EEG headset feed.
 2. **Data Preprocessing**: Data is filtered to isolate relevant frequency bands and reduce noise.
 3. **Activation Detection**: Specific channels are monitored, and when activity exceeds a set threshold, activation is detected.
-4. **3D Model Visualization**: Detected activations light up specific regions on the 3D brain model, illustrating areas of heightened activity in real time.
+4. **3D Model Visualization**: Detected activations light up specific regions on the 3D brain model, illustrating areas of heightened activity in real-time.
 
 ## Getting Started
 
