@@ -1,5 +1,3 @@
-# ChatGPT
-
 import mne
 import matplotlib.pyplot as plt
 
