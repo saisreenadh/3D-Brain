@@ -52,20 +52,6 @@ To test the functionality with sample EEG data:
 
 2. Follow the prompts or modify `processing.py` to set up different thresholds or test specific channels.
 
-### Example Usage
-
-Here’s a quick example of how the functions work together:
-```python
-from processing import load_file, filter_data, detect_activation
-
-file_path = 'path/to/eeg_data_file.fif'  # Update with your file path
-raw_data = load_file(file_path)
-filtered_data = filter_data(raw_data)
-
-if detect_activation(filtered_data, electrode='Fp1', threshold=1e-13):
-    print("Activation detected!")
-```
-
 ## Configuration
 
 - **EEG Threshold**: Adjust the `threshold` parameter in `detect_activation()` to set the desired sensitivity for activation.
