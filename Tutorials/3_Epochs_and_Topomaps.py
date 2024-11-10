@@ -28,14 +28,19 @@ raw.load_data() # loads data into memory
 ica.apply(raw) # applies pre-processing, artifact removal to data
 
 
-### EPOCHS ###
+### TOPOMAPS ###
 
 # Create epochs without relying on events, using fixed windows from the start of data
-epochs = mne.make_fixed_length_epochs(raw, duration=1, overlap=0.5, preload=True)  # overlap means that each epoch overlaps with the previous by 0.5 seconds
-print(epochs)
+epochs = mne.make_fixed_length_epochs(raw, duration=1, overlap=0.5, preload=True)  
+# I don't really know what changing duration, overlap parameters does
+# overlap means that each epoch overlaps with the previous by 0.5 seconds
 # Epochs have a get_data() function which returns a Numpy array with dimension (n_epochs, n_channels, n_times)
 
-# epochs.plot_image(picks=["MEG 1332", "EEG 021"])
+
 evoked = epochs[0].average()
-evoked.plot_topomap(times=[0.1, 0.3, 0.5, 0.7], ch_type="eeg")
+evoked.plot_topomap(times=[0.1, 0.3, 0.5, 0.7], ch_type="eeg", extrapolate="head", sensors=True)
+plt.show(block=True)
+
+times = np.arange(0.0, 0.992, 0.01)
+fig, anim = evoked.animate_topomap(times=times, ch_type="eeg", frame_rate=16, blit=False)
 plt.show(block=True)
