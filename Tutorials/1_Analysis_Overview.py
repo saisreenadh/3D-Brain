@@ -29,7 +29,7 @@ fig = raw.plot(duration=5, n_channels=30)     # plot 30 channels' raw data over 
 # read mne.preprocessing, mne.filter documentation
 
 
-### MODELING ###
+### PRE-PROCESSING ###
 
 # set up and fit the ICA
 ica = mne.preprocessing.ICA(n_components=20, random_state=97, max_iter=800)
