@@ -1,4 +1,4 @@
-# 2024-11-06
+# 2024-11-10
 # Minoo J
 # FROM CHATGPT, DOES NOT WORK
 
@@ -16,7 +16,7 @@ muse_hub.start()
 stream = MuseStream(muse_hub)
 stream.start()
 
-# Assuming `eeg_data` is a 1D array of EEG values from the Muse device
+# Assuming `eeg_data` is a 1D array of EEG values from the Muse device (?)
 eeg_data_queue = deque(maxlen=100)
 
 plt.ion()
@@ -26,11 +26,13 @@ ax.set_ylim(-100, 100)  # Adjust to the scale of your data
 ax.set_xlim(0, 100)
 
 while True:
-    eeg_data = stream.pull_data()
+    i = 0
+    eeg_data = stream.pull_data() # I think this is a numpy array; columns are channels, rows are timestamps
     
-    eeg_data_queue.append(eeg_data)
-    line.set_xdata(np.arange(len(eeg_data_queue)))  # number of rows currently read?
-    line.set_ydata(np.array(eeg_data_queue))  # different channels' data
+    eeg_data_queue.append(eeg_data[i])
+    line.set_xdata(np.arange(len(eeg_data_queue)))  # num rows
+    line.set_ydata(np.array(eeg_data_queue))  # channel data
     
     plt.pause(0.01)  # Update plot
     time.sleep(0.01)  # Simulate real-time data stream
+    i += 1
